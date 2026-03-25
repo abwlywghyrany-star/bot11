@@ -1,0 +1,17 @@
+.env
+.venv/
+.venv-1/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.vscode/
+bot.log
+
+# Local runtime data
+files/
+
+# OS/editor artifacts
+.DS_Store
+Thumbs.db

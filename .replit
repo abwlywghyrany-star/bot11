@@ -1,0 +1,19 @@
+entrypoint = "run_bot.py"
+modules = ["python-3.11"]
+
+[unitTest]
+language = "python3"
+
+[nix]
+channel = "stable-24_05"
+
+[workflows]
+runButton = "Start application"
+
+[[workflows.workflow]]
+name = "Start application"
+mode = "parallel"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python3 -u run_bot.py"

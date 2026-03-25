@@ -21,7 +21,7 @@ import telebot
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 # ====================== الإعدادات ======================
-load_dotenv()
+load_dotenv(override=True)
 BOT_TOKEN = os.getenv('BOT_TOKEN', '').strip()
 
 if not BOT_TOKEN:

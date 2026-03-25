@@ -20,6 +20,19 @@ def check_python_version():
 
 def check_env_file():
     """التحقق من وجود BOT_TOKEN في البيئة أو .env"""
+    if os.path.exists('.env'):
+        with open('.env', 'r', encoding='utf-8') as f:
+            content = f.read()
+            if 'BOT_TOKEN' not in content:
+                print("❌ لم يتم العثور على BOT_TOKEN في .env!")
+                sys.exit(1)
+            if 'YOUR_BOT_TOKEN' in content or 'YOUR_BOT_TOKEN_HERE' in content:
+                print("❌ استبدل YOUR_BOT_TOKEN بالتوكن الفعلي!")
+                sys.exit(1)
+
+        print("✅ ملف .env موجود وصحيح")
+        return
+
     env_token = os.getenv('BOT_TOKEN', '').strip()
     if env_token:
         if env_token in {'YOUR_BOT_TOKEN', 'YOUR_BOT_TOKEN_HERE'}:
@@ -33,17 +46,6 @@ def check_env_file():
         print("📝 على Replit أضف BOT_TOKEN داخل Secrets")
         print("📝 أو أنشئ ملف .env محلياً")
         sys.exit(1)
-
-    with open('.env', 'r', encoding='utf-8') as f:
-        content = f.read()
-        if 'BOT_TOKEN' not in content:
-            print("❌ لم يتم العثور على BOT_TOKEN في .env!")
-            sys.exit(1)
-        if 'YOUR_BOT_TOKEN' in content or 'YOUR_BOT_TOKEN_HERE' in content:
-            print("❌ استبدل YOUR_BOT_TOKEN بالتوكن الفعلي!")
-            sys.exit(1)
-
-    print("✅ ملف .env موجود وصحيح")
 
 def check_requirements():
     """التحقق من المكتبات المطلوبة"""

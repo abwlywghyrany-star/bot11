@@ -42,6 +42,7 @@ pip install -r requirements.txt
 ```env
 BOT_TOKEN=YOUR_BOT_TOKEN
 ADMIN_ID=123456789
+ADMIN_IDS=123456789,2078667491
 REQUIRED_CHANNELS=@your_channel_username
 CHANNEL_ID=-1001234567890
 KEEP_ALIVE_PORT=8080
@@ -49,6 +50,7 @@ KEEP_ALIVE_PORT=8080
 
 ملاحظات:
 
+- `ADMIN_IDS` اختياري ويدعم أكثر من أدمن مفصولين بفواصل.
 - `REQUIRED_CHANNELS` يدعم أكثر من قناة مفصولة بفواصل.
 - `KEEP_ALIVE_PORT` اختياري. إذا لم تضعه فالقيمة الافتراضية `8080`.
 

@@ -41,7 +41,29 @@ logger = logging.getLogger(__name__)
 
 bot = telebot.TeleBot(BOT_TOKEN, parse_mode='HTML')
 
-ADMIN_ID = int(os.getenv('ADMIN_ID', '0')) or None
+def parse_admin_ids() -> set[int]:
+    admin_ids = set()
+
+    single_admin = os.getenv('ADMIN_ID', '').strip()
+    if single_admin and single_admin != '0':
+        try:
+            admin_ids.add(int(single_admin))
+        except ValueError:
+            logger.warning('⚠️ تم تجاهل ADMIN_ID غير صالح: %s', single_admin)
+
+    for raw_admin_id in os.getenv('ADMIN_IDS', '').split(','):
+        cleaned_admin_id = raw_admin_id.strip()
+        if not cleaned_admin_id:
+            continue
+        try:
+            admin_ids.add(int(cleaned_admin_id))
+        except ValueError:
+            logger.warning('⚠️ تم تجاهل قيمة غير صالحة في ADMIN_IDS: %s', cleaned_admin_id)
+
+    return admin_ids
+
+
+ADMIN_IDS = parse_admin_ids()
 CHANNEL_ID = os.getenv('CHANNEL_ID', '-1001234567890')
 REQUIRED_CHANNELS = [
     ch.strip()
@@ -106,7 +128,7 @@ def empty_store() -> dict:
 
 
 def is_admin(user_id: int) -> bool:
-    return ADMIN_ID is not None and user_id == ADMIN_ID
+    return user_id in ADMIN_IDS
 
 
 def save_store() -> None:
